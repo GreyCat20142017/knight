@@ -1,0 +1,28 @@
+.board {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 318px;
+  margin: 0 auto;
+}
+
+.board__cell {
+  margin-top: 1px;
+  border-radius: 2px;
+  background-color: rgb(140, 140, 140);
+  width: 38px;
+  height: 38px;
+  padding: 5px;
+}
+
+@media (min-width: 768px) {
+  .board {
+    width: 487px;
+  }
+
+  .board__cell {
+    width: 60px;
+    height: 60px;
+    padding: 12px;
+  }
+}
