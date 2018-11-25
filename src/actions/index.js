@@ -5,7 +5,17 @@ export const CLEAR_SQUARE = 'CLEAR_SQUARE';
 export const MOVE_HORSE = 'MOVE_HORSE';
 export const DO_NOTHING ='DO_NOTHING';
 
-export const  doNothing = () => {
-    
+export const CLICK_CELL ='CLICK_CELL';
+
+
+export const onCellClick = (id) => {
+    return {
+        type: CLICK_CELL,
+        id: id
+    };
+} 
+
+export const doNothing = () => {
+ 	   
 }
 

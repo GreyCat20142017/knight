@@ -1,25 +1,19 @@
 import React from 'react';
+import Cell from './Cell';
 
-import {sprite} from '../sprite.jsx'
 import './Board.css';
 
-
-const Cell = ({title, clickable, svgName}) => (
-	<div className='board__cell' title={title} tabIndex={clickable ? '0' : '-1'}>	
-		 { sprite(svgName, '100%') }
-	</div>
-)
-
 const Board = (props) => {
-   const boardState = props.cells;
+   const cells = props.board.cells;
+   const horse = props.board.horse;
 		return (
 			<div className='board'>
-				  {boardState.map((item, ind) => 
-				  	 <Cell key={'id-' + ind} svgName={item.svgName} clickable={item.clickable} title={item.title}/>			
+				  {cells.map((item, ind) => 
+				  	 <Cell key={'id-' + ind} svg={item.content.svg} clickable={item.content.clickable} title={item.content.title} id = {ind} horse = {horse} 
+				  	 onCellClick={props.onCellClick} />			
 				  )}	
 			</div>
 			)
 }
-
 
 export default Board;
