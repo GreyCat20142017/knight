@@ -1,12 +1,6 @@
-export const ADD_HORSE = 'ADD_HORSE';
-export const ADD_STAR = 'ADD_STAR';
-export const ADD_LITTER = 'ADD_LITTER';
-export const CLEAR_SQUARE = 'CLEAR_SQUARE';
-export const MOVE_HORSE = 'MOVE_HORSE';
-export const DO_NOTHING ='DO_NOTHING';
 
-export const CLICK_CELL ='CLICK_CELL';
-
+export const CLICK_CELL = 'CLICK_CELL';
+export const START = 'START';
 
 export const onCellClick = (id) => {
     return {
@@ -15,7 +9,10 @@ export const onCellClick = (id) => {
     };
 } 
 
-export const doNothing = () => {
- 	   
-}
+export const onStart = () => {
+    return {
+        type: START        
+    };
+} 
+
 

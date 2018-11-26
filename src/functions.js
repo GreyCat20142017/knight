@@ -1,6 +1,6 @@
 import { MAP_ID_COORDS, POSSIBILITY } from './constants'
 
-const shuffleArray = function (entities) {
+export const shuffleArray = function (entities) {
 	const sortableEntities = entities.slice();
 	for (let i = sortableEntities.length - 1; i > 0; i--) {
 		let j = Math.floor(Math.random() * (i + 1));
@@ -11,16 +11,20 @@ const shuffleArray = function (entities) {
 	return sortableEntities;
 }; 
 
+const getRandomFromRange =  (min, max) => {
+	return Math.floor(min + Math.random() * (max + 1 - min));
+};
+
+export const getRandomFromArray =  (arr) => {
+	return arr[getRandomFromRange(1, arr.length) - 1];
+};
+
 export const getInitialState = (sideLength, content) => {
 	let arr = [];
 	let indexArr = [];
-	let objectLocation = {};
-
-	for (let i = 0; i < sideLength; i++) {
-		for (let j = 0; j < sideLength; j++) {			
-			arr.push({id: j * sideLength + i, content: content.EMPTY});
-			indexArr.push(j * sideLength + i);		
-		}	
+	for (let i = 0; i < sideLength * sideLength; i++) {	
+			arr.push({id: i, content: content.EMPTY});
+			indexArr.push(i);			
 	};
 
 	indexArr = shuffleArray(indexArr);
@@ -31,20 +35,8 @@ export const getInitialState = (sideLength, content) => {
 		arr[indexArr[2]].content = content.LITTER;	
 	} 
 
-	return {board: {cells: arr, horse: indexArr[0]}, info: {score: 0, life: 1}, recordsTable: []};
+	return {board: {cells: arr, horse: indexArr[0]}, info: {score: 0, life: 1}};
 };
-
-
-export const getMapIdCoords = (sideLength) => {
-	let arr = [];
-	for (let i = 0; i < sideLength; i++) {
-		for (let j = 0; j < sideLength; j++) {			
-		 arr[j * sideLength + i] = {x: i + 1, y: j + 1};
-		}	
-	};
-	return arr;
-};
-
 
 export const getMoveValidity = (idCurrent, idNext) => {
 	let isValid = false;
@@ -54,8 +46,6 @@ export const getMoveValidity = (idCurrent, idNext) => {
 		if ((currentCoord.x + item.x === nextCoord.x) && (currentCoord.y + item.y === nextCoord.y)) {
 			isValid = true;
 		}
-	});
-	console.log(currentCoord.x +' '+ currentCoord.y+  ' -  ' + nextCoord.x +' '+ nextCoord.y+ ' '+isValid);
+	});	
 	return isValid;
 }
-
