@@ -1,5 +1,5 @@
 import { CLICK_CELL, START } from '../actions'; 
-import { getMoveValidity, shuffleArray, getInitialState, getIndexById } from '../functions'
+import { getMoveValidity, shuffleArray, getInitialState } from '../functions'
 import { BOARD_SIDE, CONTENT } from '../constants'
 
 const moveOnEmptyReducer = (state = [], action) => {
@@ -60,7 +60,7 @@ const moveOnStarReducer = (state = [], action) => {
 const moveOnLitterReducer = (state = [], action) => {
 	switch (action.type) {
 		case CLICK_CELL: 
-			const emptyCells = shuffleArray(state.filter(item => (item.content === CONTENT.EMPTY ) && (item.id !== action.id) ));			
+			const emptyCells = shuffleArray(state.filter(item => (item.content === CONTENT.EMPTY ) && (item.id !== action.id) ));				
 			let tmpArray = state.map((item, ind) => {
 				if (ind === action.id) {
 					item.content = CONTENT.HORSE;
