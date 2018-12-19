@@ -1,17 +1,19 @@
 import { connect } from 'react-redux';
 
 import Board from '../components/Board';
-import { onCellClick } from '../actions'; 
+import { onCellClick, onModalShow } from '../actions';
 
 function mapStateToProps(state) {
     return {
-        board: state.board
+        board: state.board,
+        modal: state.modal
     };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-       onCellClick:  id => dispatch(onCellClick(id))
+       onCellClick:  id => dispatch(onCellClick(id)),
+       onModalShow:  id => dispatch(onModalShow(id))
     };
 }
 
