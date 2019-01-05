@@ -31,8 +31,9 @@ export const onModalCancel = () => {
     };
 }
 
-export const onModalShow = () => {
+export const onModalShow = (id) => {
     return {
-        type: SHOW_MODAL
+        type: SHOW_MODAL,
+        id: id
     };
 }

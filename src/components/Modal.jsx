@@ -13,6 +13,7 @@ export default class Modal extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.isModalOpen) {
+      console.log(this.props);
       this.refs.first.focus();
     }
   }
