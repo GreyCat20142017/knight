@@ -9,6 +9,7 @@ import './App.css';
 function App() {
     return (
         <main className='game'>
+            <h2 className='game__title'>Конь-2018</h2>
             <BoardContainer/>
             <InfoContainer/>
             <ModalContainer/>

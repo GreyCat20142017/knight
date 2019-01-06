@@ -50,97 +50,42 @@ export const getMoveValidity = (idCurrent, idNext) => {
   return isValid;
 };
 
-const partOK = (arr, strStart, strFinish, colStart, colFinish)  => {
-  let ok = true;
-  for (let mm = colStart; mm < colFinish; mm++){
-    for (let nn = strStart; nn < strFinish; nn++) {
-       ok = ok && (arr[nn, mm] === 1);
+export const getCoordByID = (id, sideLength) => {
+  return {i: Math.floor(id / sideLength), j: id % sideLength};
+};
+
+const getSubmatrix = (size) => {
+  let sub = new Array(size);
+  for (let i = 0; i < size; i++) {
+    sub[i] = new Array(size);
+    for (let j = 0; j < size; j++) {
+      sub[i][j] = 1;
     }
-  }
-  return ok;
-};
+  };
+  return sub;
+}
 
-const checkVertical = (arr, iDimension, tmpBegin, tmpSize, squares, minLimit)  => {
-  if (tmpSize.width >= minLimit) {
-    for (let qq = tmpBegin.i; qq < iDimension; qq++) {
-      if ((tmpSize.width >= minLimit && (qq - tmpBegin.i + 1) >= minLimit) &&
-        partOK(arr, tmpBegin.i, qq, tmpBegin.j, tmpBegin.j + tmpSize.width)) {
-        squares.push({coords: Object.assign({}, tmpBegin), size: Object.assign({}, {width: tmpSize.width, height: qq - tmpBegin.i + 1})});
-    };
-  }
-  }
-};
-
-const getSquares = (arr, minLimit) => {
+const getSquaresWithHorse  = (arr, minLimit, horse) => {
   let squares = [];
-  let iDimension = arr.length;
-  let jDimension = arr[0].length;
-  for (let i = 0; i < iDimension; i++) {
-    for (let j = 0; j < jDimension; j++) {
-      if (arr[i][j] === 1) {
-        let tmpBegin = {i: i, j: j};
-        let tmpSize = {width: 1, height: 1};
-        for (let jj = j + 1; jj < jDimension; jj++) {
-          if (arr[tmpBegin.i][jj] === 1) {
-            tmpSize.width = tmpSize.width + 1;
-            checkVertical(arr, iDimension, tmpBegin, tmpSize, squares, minLimit);
-          } else {
-            checkVertical(arr, iDimension, tmpBegin, tmpSize, squares, minLimit);
-            break;
-          }
-        };
+  let sub = getSubmatrix(minLimit);
 
-        for (let ii = tmpBegin.i + 1; ii < iDimension; ii++) {
-          if (arr[ii][tmpBegin.j] === 0) {
-            if (tmpSize.width >= minLimit && tmpSize.height >= minLimit) {
-              squares.push({coords: Object.assign({}, tmpBegin), size: Object.assign({}, tmpSize)});
-            };
-            break;
+  for (let i = 0; i < arr.length - sub.length + 1; i++) {
+    for (let j = 0; j < arr[0].length - sub[0].length + 1; j++) {
+      let submatrix = true;
+      for (let k = 0; k < sub.length; ++k) {
+        for (let l = 0; l < sub[0].length; ++l) {
+          if (arr[i + k][j + l] === sub[k][l]) {
           } else {
-            tmpSize.height = tmpSize.height + 1;
-            for (let jjj = tmpBegin.j + 1; jjj <= (j + tmpSize.width - 1); jjj++) {
-              if (arr[ii][jjj] === 0) {
-                tmpSize.height = tmpSize.height - 1;
-                if (tmpSize.width >= minLimit && tmpSize.height >= minLimit) {
-                  squares.push({coords: Object.assign({}, tmpBegin), size: Object.assign({}, tmpSize)});
-                };
-                tmpSize.width = jjj - tmpBegin.j;
-                if (tmpSize.width >= minLimit && tmpSize.height >= minLimit) {
-                  squares.push({coords: Object.assign({}, tmpBegin), size: Object.assign({}, tmpSize)});
-                };
-              }
-            }
+            submatrix = false;
           }
-        };
-
-        if (tmpSize.width >= minLimit && tmpSize.height >= minLimit) {
-          squares.push({coords: Object.assign({}, tmpBegin), size: Object.assign({}, tmpSize)});
         }
+      }
+      if (submatrix && ((horse.i >= i && horse.i < i + minLimit) && (horse.j >= j && horse.j < j + minLimit))) {
+        squares.push( {coords: {i:i, j: j}, size: {width: minLimit, height: minLimit}});
       }
     }
   }
-
   return squares;
-};
-
-const getMaxSquareWithHorse = (arr, minLimit, horseCoords) => {
-
-  let squaresArr =  getSquares(arr, minLimit).filter(item => (
-    ((horseCoords.i >= item.coords.i) && (horseCoords.i <= (item.coords.i + item.size.height - 1))) &&
-    (horseCoords.j >= item.coords.j) && (horseCoords.j <= (item.coords.j + item.size.width - 1))
-    ));
-  switch (squaresArr.length) {
-    case 0:
-      return null;
-    case 1:
-      return  squaresArr[0];
-    default:
-      return  squaresArr.reduce((first, second) => (first.size.height * first.size.width >= second.size.height * second.size.width ? first : second));
-  }
-};
-
-export const getCoordByID = (id, sideLength) => {
-  return {i: Math.floor(id / sideLength), j: id % sideLength};
 };
 
 export const getAnalizeResult = (stateArr, horse) => {
@@ -155,10 +100,10 @@ export const getAnalizeResult = (stateArr, horse) => {
       arr[i][j] = tmpArr[i * BOARD_SIDE + j];
     }
   };
- let maxRectangle = getMaxSquareWithHorse(arr, MIN_RECTANGLE_LIMIT, horseCoords);
+ let maxRectangle = getSquaresWithHorse(arr, MIN_RECTANGLE_LIMIT, horseCoords);
  let resetItems = [];
- if (maxRectangle) {
-    let rectangle = maxRectangle;
+ if (maxRectangle.length > 0) {
+      maxRectangle.forEach(rectangle => {
       for (let i = 0; i < rectangle.size.height; i++) {
         for (let j = 0; j < rectangle.size.width; j++) {
         resetItems.push(rectangle.coords.i * BOARD_SIDE + i * BOARD_SIDE + rectangle.coords.j + j);
@@ -169,6 +114,7 @@ export const getAnalizeResult = (stateArr, horse) => {
         newState[resetItems[k]].content = CONTENT.EMPTY;
       }
     };
+    });
     needIncreaseScore = true;
  }
  return {cells: newState, additionToScore: (needIncreaseScore ? 1 : 0)};

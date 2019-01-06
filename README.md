@@ -3,6 +3,6 @@
 
 Идея принадлежит неизвестному мне 1С-нику. За что ему огромнейшее спасибо :-).
 
-Также большое спасибо [Vitaly](https://otvet.mail.ru/profile/id563221/) за [описание алгоритма получения наибольшего по площади прямоугольника]( https://otvet.mail.ru/question/3470503).
+Также большое спасибо вот этой ветке [qaru](http://qaru.site/questions/3111364/finding-sub-matrix-of-a-given-matrix) за выручивший мну алгоритм. Ответ [r3mbol](https://stackoverflow.com/users/861460/r3mbol), если не ошибаюсь. :-)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -140,7 +140,7 @@ const reducer = (state = {}, action) => {
 		case CLICK_CELL: {
 
 			let clickedContent = cells[action.id].content;
-			if (getMoveValidity(horse, action.id))	 {
+			if (getMoveValidity(horse, action.id)) {
 				switch (clickedContent) {
 					case CONTENT.STAR: {
 						return Object.assign({}, state,  moveOnStarReducer(state, action));
@@ -154,10 +154,11 @@ const reducer = (state = {}, action) => {
 					case CONTENT.EMPTY: {
 						return Object.assign({}, state,  moveOnEmptyReducer(state, action));
 					}
-					default:
-					return state;
+					default: {
+            return state;
+          }
 				}
-			}
+		  }
       return state;
 		};
 
@@ -171,7 +172,6 @@ const reducer = (state = {}, action) => {
 
 		default:
 			return state;
-
 	}
 }
 

@@ -10,7 +10,7 @@ const getMapIdCoords = (sideLength) => {
 
 export const BOARD_SIDE = 8;
 export const MIN_RECTANGLE_LIMIT = 3;
-export const LIFE_COUNTER_BORDER = 7;
+export const LIFE_COUNTER_BORDER = 25;
 
 export const CONTENT = {
   EMPTY: {clickable: true, svg: 'none', title: 'свободно'},

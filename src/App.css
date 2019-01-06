@@ -4,6 +4,11 @@
   padding: 40px 0;
 }
 
+.game__title {
+  text-align: center;
+  color: rgba(255, 218, 68, 1);
+}
+
 .btn {
   display: inline-block;
   margin: 0;
