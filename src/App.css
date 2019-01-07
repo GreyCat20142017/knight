@@ -1,12 +1,7 @@
 .game {
   width: 318px;
   margin: 0 auto;
-  padding: 40px 0;
-}
-
-.game__title {
-  text-align: center;
-  color: rgba(255, 218, 68, 1);
+  padding: 20px 0;
 }
 
 .btn {

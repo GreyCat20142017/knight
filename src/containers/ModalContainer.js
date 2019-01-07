@@ -5,14 +5,14 @@ import { onDisabledClick, onModalCancel } from '../actions';
 
 const mapStateToProps = (state) => {
   return {
-    isModalOpen: state.modal.isModalOpen
+    modal: state.modal
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onDisabledClick:  id => dispatch(onDisabledClick(id)),
-    onModalCancel:  () => dispatch(onModalCancel())
+    onDisabledClick: id => dispatch(onDisabledClick(id)),
+    onModalCancel: () => dispatch(onModalCancel())
   };
 }
 

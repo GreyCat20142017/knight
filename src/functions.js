@@ -1,4 +1,12 @@
-import { MAP_ID_COORDS, POSSIBILITY, BOARD_SIDE, MIN_RECTANGLE_LIMIT, CONTENT } from './constants'
+import {
+  MAP_ID_COORDS,
+  POSSIBILITY,
+  BOARD_SIDE,
+  MIN_RECTANGLE_LIMIT,
+  CONTENT,
+  RECORDS_TABLE_LIMIT,
+  LIFE_COUNTER_BORDER,
+  MODAL_TYPES } from './constants'
 
 export const shuffleArray = function (entities) {
   const sortableEntities = entities.slice();
@@ -19,6 +27,17 @@ export const getRandomFromArray =  (arr) => {
   return arr[getRandomFromRange(1, arr.length) - 1];
 };
 
+const getRecordsTable = () => {
+  let records = [];
+  let randomNames = shuffleArray(['Пупкин', 'Ляпкин', 'Тяпкин', 'Иванов', 'Петров', 'Сидоров']);
+  for (let i = 1; i <= RECORDS_TABLE_LIMIT; i++) {
+    records.push({
+      name: randomNames[i],
+      result: getRandomFromRange (Math.floor( LIFE_COUNTER_BORDER / RECORDS_TABLE_LIMIT),  LIFE_COUNTER_BORDER)});
+  }
+  return records.sort((a,b) => b.result-a.result);
+}
+
 export const getInitialState = (sideLength, content) => {
   let arr = [];
   let indexArr = [];
@@ -35,7 +54,13 @@ export const getInitialState = (sideLength, content) => {
     arr[indexArr[2]].content = content.LITTER;
   }
 
-  return {board: {cells: arr, horse: indexArr[0]}, info: {score: 0, life: 1}, modal: {isModalOpen: false}};
+  return {
+    board: {cells: arr, horse: indexArr[0]},
+    info: {score: 0, life: 1},
+    modal: {isModalOpen: false, modalType: MODAL_TYPES.nothing},
+    records: getRecordsTable(),
+    undoState: null
+  };
 };
 
 export const getMoveValidity = (idCurrent, idNext) => {

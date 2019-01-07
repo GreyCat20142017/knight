@@ -7,9 +7,11 @@ const Info = (props) => {
 
 		return (
 			<div className='info'>
-				 <span className='info__score'>Счет: {score}</span>
-				 <button className='info__start btn btn--small' type='button' title='Перезапустить игру' onClick={props.onStart}>Старт</button>
-				 <span className='info__life' title='Жизнь используется для прорыва через заблокированное поле'>Жизни: {life}</span>
+        <div className='info__wrapper'>
+				 <span className='info__span info__span--score'>Счет: {score}</span>
+				 <button className='info__button info__button--start btn btn--small' type='button' title='Перезапустить игру' onClick={props.onStart}>Старт</button>
+				 <span className='info__span info__span--life' title='Жизнь используется для прорыва через заблокированное поле'>Жизни: {life}</span>
+         </div>
 			</div>
 			)
 }
