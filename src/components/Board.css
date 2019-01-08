@@ -3,6 +3,38 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	margin: 0 auto;
+  position: relative;
+}
+
+.board__end {
+  display: none;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.board__end--over {
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.12;
+}
+
+.board__text {
+  color: rgba(255, 218, 68, 1);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.board__wrapper {
+  width: 80%;
+  margin: 0 auto;
+  animation: 20s infinite linear;
+  animation-name: spin;
 }
 
 .board__cell {
@@ -17,17 +49,30 @@
 .board__cell--disabled {
 	background-color: rgba(140, 140, 140, 0.8);
 	box-shadow: 0 0 0 5px rgba(140, 140, 140, 0.8) inset;
-} 
+}
 
 
 .board__cell--test {
 	background-color: rgba(240, 140, 240, 0.8);
 }
 
-@media (min-width: 768px) {	
+@keyframes spin {
+  from {
+    -webkit-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+  }
+  to {
+    -webkit-transform: rotateY(-360deg);
+            transform: rotateY(-360deg);
+  }
+}
+
+
+@media (min-width: 768px) {
 	.board__cell {
 		width: 60px;
 		height: 60px;
 		padding: 12px;
 	}
 }
+

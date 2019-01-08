@@ -33,9 +33,9 @@ const getRecordsTable = () => {
   for (let i = 1; i <= RECORDS_TABLE_LIMIT; i++) {
     records.push({
       name: randomNames[i],
-      result: getRandomFromRange (Math.floor( LIFE_COUNTER_BORDER / RECORDS_TABLE_LIMIT),  LIFE_COUNTER_BORDER)});
+      result: getRandomFromRange (1,  LIFE_COUNTER_BORDER)});
   }
-  return records.sort((a,b) => b.result-a.result);
+  return records.sort((a, b) => b.result - a.result);
 }
 
 export const getInitialState = (sideLength, content) => {
@@ -56,7 +56,7 @@ export const getInitialState = (sideLength, content) => {
 
   return {
     board: {cells: arr, horse: indexArr[0]},
-    info: {score: 0, life: 1},
+    info: {score: 0, life: 1, gameOver: false},
     modal: {isModalOpen: false, modalType: MODAL_TYPES.nothing},
     records: getRecordsTable(),
     undoState: null
@@ -75,8 +75,27 @@ export const getMoveValidity = (idCurrent, idNext) => {
   return isValid;
 };
 
+const getIndexByCoord = (coord, sideLength) => ((coord.x - 1) * (sideLength) + (coord.y - 1));
+
+export const getMovePossibility = (idCurrent, cells) => {
+  let currentCoord = getCoordXYByID(idCurrent, BOARD_SIDE);
+  let isMovePossible =  POSSIBILITY.some(item => {
+    let itemCoord = {x: currentCoord.x + item.x, y: currentCoord.y + item.y};
+    return (
+      (itemCoord.x >= 1) &&  (itemCoord.x <= BOARD_SIDE) &&
+      (itemCoord.y >= 1) && (itemCoord.y <= BOARD_SIDE)  &&
+      (cells[getIndexByCoord(itemCoord, BOARD_SIDE)].content !== CONTENT.DISABLED)
+      )
+  });
+  return isMovePossible;
+};
+
 export const getCoordByID = (id, sideLength) => {
   return {i: Math.floor(id / sideLength), j: id % sideLength};
+};
+
+export const getCoordXYByID = (id, sideLength) => {
+  return {x: Math.floor(id / sideLength) + 1, y: id % sideLength + 1};
 };
 
 const getSubmatrix = (size) => {

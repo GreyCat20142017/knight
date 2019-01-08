@@ -6,7 +6,8 @@ import { onCellClick, onModalShow } from '../actions';
 function mapStateToProps(state) {
     return {
         board: state.board,
-        modal: state.modal
+        modal: state.modal,
+        info: state.info
     };
 }
 

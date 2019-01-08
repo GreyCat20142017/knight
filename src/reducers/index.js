@@ -1,6 +1,6 @@
 import { CLICK_CELL, START, CLICK_DISABLED_CELL, CLOSE_MODAL, SHOW_MODAL, SHOW_ABOUT, UNDO } from '../actions';
 
-import { getMoveValidity, shuffleArray, getInitialState, getAnalizeResult} from '../functions'
+import { getMoveValidity, shuffleArray, getInitialState, getAnalizeResult, getMovePossibility} from '../functions'
 import { BOARD_SIDE, CONTENT, LIFE_COUNTER_BORDER, MODAL_TYPES } from '../constants'
 
 const onEmptyStarCellMap = (cells, actionId) => {
@@ -66,10 +66,11 @@ const commonMoveReducer = (state = {}, action, specific) => {
       }
       let result = getAnalizeResult(tmpArray, actionId);
       score = score + result.additionToScore;
-      life = (result.additionToScore) && (score % LIFE_COUNTER_BORDER === 0) ? (life + 1) : life;
+      life = ((result.additionToScore) && (score % LIFE_COUNTER_BORDER === 0) ? (life + 1) : life) - specific.loss;
+      let isGameOver = !((life > 0) || getMovePossibility(actionId, result.cells));
       return {
         board: {horse: actionId, cells: result.cells},
-        info: {score: score, life: life - specific.loss},
+        info: {score: score, life: life, gameOver: isGameOver},
         modal: {isModalOpen: false, modalType: MODAL_TYPES.nothing}
       };
     default:  return state;

@@ -7,7 +7,7 @@ const Records = (props) => {
 		return (
 			<div className='records'>
          <p className='records__row records__row--header'>
-				  <span className='records__cell records__cell--left'>Имя</span>
+				  <span className='records__cell records__cell--left'>Игрок</span>
 				  <span className='records__cell records__cell--right' >Счет</span>
          </p>
          <ul className='records__rows'>

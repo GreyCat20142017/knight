@@ -8,12 +8,11 @@ export default class Modal extends React.Component {
 
   componentWillMount() {
     this.root = document.createElement('div');
-    this.singleButton = (this.props.modal.modalType === MODAL_TYPES.about);
     document.body.appendChild(this.root);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.isModalOpen) {
+    if (this.props.modal.isModalOpen ) {
       this.refs.first.focus();
     }
   }
@@ -25,19 +24,31 @@ export default class Modal extends React.Component {
   onKeyDown = (evt) => {
     switch (evt.keyCode) {
       case KEY_CODES.TAB: {
-        if (evt.shiftKey && (evt.target === this.refs.first)) {
+        if ((evt.target === this.refs.first) && evt.shiftKey) {
           evt.preventDefault();
-          if (this.singleButton) {
-            this.refs.first.focus();
-          }
-          else  {
-            this.refs.last.focus();
-          }
+          this.refs.last.focus();
         }
-        if (!evt.shiftKey && (this.singleButton || evt.target === this.refs.last)) {
+        if ((evt.target === this.refs.last) && !evt.shiftKey) {
           evt.preventDefault();
           this.refs.first.focus();
         }
+        break;
+      }
+
+      case KEY_CODES.ESC: {
+        this.props.onModalCancel();
+        break;
+      }
+
+      default:
+      break;
+    }
+  }
+
+  onSigleButtonTabKeyDown = (evt) => {
+    switch (evt.keyCode) {
+      case KEY_CODES.TAB: {
+        evt.preventDefault();
         break;
       }
 
@@ -81,7 +92,7 @@ export default class Modal extends React.Component {
              <p className='modal__text'>Если число набранных очков кратно 25 - дается дополнительная жизнь.
              Доп. жизнью можно воспользоваться для хода по закрашенной клетке. Кисточка обозначает клетку, которая закрасится в начале следующего хода.</p>
              <p className='modal__text'>Игра заканчивается когда ходов и жизней больше нет.</p>
-             <button className="modal__button btn" onClick={this.props.onModalCancel} onKeyDown={this.onKeyDown} ref='first'>Закрыть</button>
+             <button className="modal__button btn" onClick={this.props.onModalCancel} onKeyDown={this.onSigleButtonTabKeyDown} ref='first'>Закрыть</button>
           </div>
         </div>,
         this.root)

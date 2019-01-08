@@ -1,11 +1,12 @@
 import React from 'react';
 import { CONTENT } from '../constants'
-
+import { sprite } from '../sprite'
 import Cell from './Cell';
 import './Board.css';
 
 const Board = (props) => {
    const {cells, horse} = props.board;
+   const {gameOver} = props.info;
 		return (
 			<div className='board'>
 				  {cells.map((item, ind) =>
@@ -16,11 +17,17 @@ const Board = (props) => {
               id = {ind}
               horse = {horse}
 				  	  disabled={item.content === CONTENT.DISABLED}
-              onCellClick={props.onCellClick}
-              onModalShow={props.onModalShow} />
+              onCellClick={gameOver ? () => {} : props.onCellClick}
+              onModalShow={gameOver ? () => {} : props.onModalShow} />
 				  )}
+          <div className={'board__end ' + (gameOver ? 'board__end--over': '')}>
+            <p className='board__wrapper'>
+            { sprite('horse', '100%') }
+            </p>
+         </div>
 			</div>
 		)
+
 }
 
 export default Board;
