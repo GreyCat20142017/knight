@@ -1,0 +1,13 @@
+{
+  "main.css": "/knight/static/css/main.1c4c779c.chunk.css",
+  "main.js": "/knight/static/js/main.8fdee763.chunk.js",
+  "main.js.map": "/knight/static/js/main.8fdee763.chunk.js.map",
+  "static/js/1.3f19101d.chunk.js": "/knight/static/js/1.3f19101d.chunk.js",
+  "static/js/1.3f19101d.chunk.js.map": "/knight/static/js/1.3f19101d.chunk.js.map",
+  "runtime~main.js": "/knight/static/js/runtime~main.18d23ed5.js",
+  "runtime~main.js.map": "/knight/static/js/runtime~main.18d23ed5.js.map",
+  "static/css/main.1c4c779c.chunk.css.map": "/knight/static/css/main.1c4c779c.chunk.css.map",
+  "index.html": "/knight/index.html",
+  "precache-manifest.903ee306b046f6070010a766a881c368.js": "/knight/precache-manifest.903ee306b046f6070010a766a881c368.js",
+  "service-worker.js": "/knight/service-worker.js"
+}
