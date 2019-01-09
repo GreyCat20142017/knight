@@ -4,6 +4,7 @@
 	flex-wrap: wrap;
 	margin: 0 auto;
   position: relative;
+  z-index: 1;
 }
 
 .board__end {
@@ -14,6 +15,7 @@
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 0;
 }
 
 .board__end--over {
@@ -40,21 +42,17 @@
 .board__cell {
 	margin-top: 1px;
 	border-radius: 2px;
-	background-color: rgb(140, 140, 140);
+	background-color: rgb(170, 170, 170);
 	width: 38px;
 	height: 38px;
 	padding: 5px;
 }
 
 .board__cell--disabled {
-	background-color: rgba(140, 140, 140, 0.8);
-	box-shadow: 0 0 0 5px rgba(140, 140, 140, 0.8) inset;
+	background-color: rgba(170, 170, 170, 0.88);
+	box-shadow: 0 0 0 5px rgba(170, 170, 170, 0.8) inset;
 }
 
-
-.board__cell--test {
-	background-color: rgba(240, 140, 240, 0.8);
-}
 
 @keyframes spin {
   from {

@@ -10,13 +10,13 @@ import './App.css';
 
 function App() {
     return (
-        <main className='game'>
+        <div className='game'>
             <HeaderContainer/>
             <BoardContainer/>
             <InfoContainer/>
             <RecordsContainer/>
             <ModalContainer/>
-        </main>
+        </div>
     );
 }
 

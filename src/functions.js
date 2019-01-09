@@ -6,7 +6,9 @@ import {
   CONTENT,
   RECORDS_TABLE_LIMIT,
   LIFE_COUNTER_BORDER,
-  MODAL_TYPES } from './constants'
+  MODAL_TYPES,
+  INITITAL_USERNAME,
+  LSNAME } from './constants'
 
 export const shuffleArray = function (entities) {
   const sortableEntities = entities.slice();
@@ -33,12 +35,17 @@ const getRecordsTable = () => {
   for (let i = 1; i <= RECORDS_TABLE_LIMIT; i++) {
     records.push({
       name: randomNames[i],
-      result: getRandomFromRange (1,  LIFE_COUNTER_BORDER)});
+      result: getRandomFromRange (1,  Math.floor(LIFE_COUNTER_BORDER / 2))});
   }
   return records.sort((a, b) => b.result - a.result);
 }
 
-export const getInitialState = (sideLength, content) => {
+const getInitialResults = () => {
+  let resultsFromLS = getObjectFromLocalStorage(LSNAME);
+  return resultsFromLS ? resultsFromLS : {records: getRecordsTable(), user: INITITAL_USERNAME};
+}
+
+export const getInitialState = (sideLength, content, previousResults) => {
   let arr = [];
   let indexArr = [];
   for (let i = 0; i < sideLength * sideLength; i++) {
@@ -58,7 +65,7 @@ export const getInitialState = (sideLength, content) => {
     board: {cells: arr, horse: indexArr[0]},
     info: {score: 0, life: 1, gameOver: false},
     modal: {isModalOpen: false, modalType: MODAL_TYPES.nothing},
-    records: getRecordsTable(),
+    results:  (previousResults ?  {records: previousResults.records, user: previousResults.user} : getInitialResults()),
     undoState: null
   };
 };
@@ -162,4 +169,29 @@ export const getAnalizeResult = (stateArr, horse) => {
     needIncreaseScore = true;
  }
  return {cells: newState, additionToScore: (needIncreaseScore ? 1 : 0)};
+};
+
+
+export const isLocalStorageAvailable = () => {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+};
+
+
+export const putObjectToLocalStorage = (lsName, value) => {
+  if (isLocalStorageAvailable()) {
+    localStorage.setItem(lsName, JSON.stringify(value));
+  }
+};
+
+
+export const getObjectFromLocalStorage = (lsName) => {
+  if (isLocalStorageAvailable()) {
+    const objFromLC = JSON.parse(localStorage.getItem(lsName));
+    return ((typeof objFromLC) === 'object') ? objFromLC : null;
+  }
+  return null;
 };

@@ -1,21 +1,22 @@
 import { connect } from 'react-redux';
 
 import Board from '../components/Board';
-import { onCellClick, onModalShow } from '../actions';
+import { onCellClick, onModalShow} from '../actions';
 
 function mapStateToProps(state) {
-    return {
-        board: state.board,
-        modal: state.modal,
-        info: state.info
-    };
+  return {
+    board: state.board,
+    modal: state.modal,
+    info: state.info
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-       onCellClick:  id => dispatch(onCellClick(id)),
-       onModalShow:  id => dispatch(onModalShow(id))
-    };
+  return {
+   onCellClick:  id => dispatch(onCellClick(id)),
+   onModalShow:  id => dispatch(onModalShow(id)),
+   doNothing: () => {}
+ };
 }
 
 //connect создает функцию создания контейнера. Параметром при вызове этой ф-ции служит презентационный компонент.

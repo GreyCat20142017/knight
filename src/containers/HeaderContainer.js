@@ -12,8 +12,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-   onUndo:  id => dispatch(onUndo(id)),
-   onAboutShow:  id => dispatch(onAboutShow(id))
+   onUndo: () => dispatch(onUndo()),
+   onAboutShow: () => dispatch(onAboutShow())
  }
 };
 

@@ -12,6 +12,7 @@ export const BOARD_SIDE = 8;
 export const MIN_RECTANGLE_LIMIT = 3;
 export const LIFE_COUNTER_BORDER = 25;
 export const RECORDS_TABLE_LIMIT = 3;
+export const INITITAL_USERNAME = 'Вы';
 
 export const CONTENT = {
   EMPTY: {clickable: true, svg: 'none', title: 'свободно'},
@@ -28,3 +29,5 @@ export const MAP_ID_COORDS = getMapIdCoords(BOARD_SIDE);
 export const KEY_CODES = {ESC: 27, TAB: 9};
 
 export const MODAL_TYPES = {about: 'about', life: 'life', nothing: 'nothing'}
+
+export const LSNAME = 'bred-ls';
